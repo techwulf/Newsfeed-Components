@@ -89,6 +89,51 @@ const data = [
   }
 ];
 
+function articleMaker(article){
+  const card = document.createElement('div');
+  const title = document.createElement('h2');
+  const date = document.createElement('p');
+  const expand = document.createElement('span');
+
+  card.classList.add('article');
+  date.classList.add('date');
+  expand.classList.add('expandButton');
+
+  title.textContent = article.title;
+  date.textContent = article.date;
+
+  card.appendChild(title);
+  card.appendChild(date);
+  for (let i=0;i<3;i++){
+    const paragraph = document.createElement('p');
+    if (i===0){
+      paragraph.textContent = article.firstParagraph;
+    } else if (i===1){
+      paragraph.textContent = article.secondParagraph;
+    } else {
+      paragraph.textContent = article.thirdParagraph;
+    }
+    card.appendChild(paragraph);
+  }
+  expand.textContent = '+';
+  card.appendChild(expand);
+  expand.addEventListener('click', () => card.classList.toggle('article-open'));
+  return card;
+}
+
+const articles = document.querySelector('div.articles');
+data.forEach( article => {
+  articles.appendChild(articleMaker(article));
+});
+
+const newArticle = {
+  title: 'Totally New Article',
+  date: 'Aug 4th, 2021',
+  firstParagraph: 'AHHHHHHHHHHHHHHHHHHH',
+  secondParagraph: 'AHHHHHHHHHHHHHHHHHHH',
+  thirdParagraph: 'AHHHHHHHHHHHHHHHHHHH'
+}
+articles.appendChild(articleMaker(newArticle));
 /*
   Step 1: Write a component called 'articleMaker' to create an article.
   Your component is a function that takes an article object as its only argument,
